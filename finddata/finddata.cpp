@@ -3,15 +3,15 @@
 
 #include "stdafx.h"
 #include "searchfiles.h"
-
+#include <conio.h>
 //typedef void (*LPSEARCHFUNC)(LPCSTR lpszFileName);
 
-void DoSomething(LPCTSTR lpszFileName)
+void DoSomething(LPCWSTR lpszFileName)
 {
-    MessageBox(NULL, lpszFileName, L"Find File", MB_OK | MB_APPLMODAL);
+    printf( "все получилось" );
 }
 
-int _wmain()
+int main()
 {
     if (!SetConsoleOutputCP(1251))
     {
@@ -32,7 +32,8 @@ int _wmain()
 
     printf("Привет всем!\n");
     printf("И еще раз привет всем!\n");
-	SearchFiles( L"D:\\books\\name.*", (LPSEARCHFUNC)DoSomething, FALSE);
+	getch();
+	SearchFiles( L"D:\\books\\*", (LPSEARCHFUNC)DoSomething, FALSE);
 	//GetFileTime(
 	return 0;
 }
