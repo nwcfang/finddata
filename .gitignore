@@ -2,3 +2,6 @@
 ipch/*
 Debug/*
 finddata/Debug/*
+Release/*
+finddata/Release/*
+finddata/log.txt
