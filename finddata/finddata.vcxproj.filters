@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
+    <None Include="..\..\..\program files (x86)\microsoft visual studio 10.0\vc\include\iostream" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -25,6 +26,18 @@
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="searchfiles.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\program files (x86)\microsoft visual studio 10.0\vc\include\tchar.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\program files (x86)\microsoft visual studio 10.0\vc\include\string.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="c:\program files (x86)\microsoft sdks\windows\v7.0a\include\windows.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>

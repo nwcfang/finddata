@@ -63,6 +63,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -72,9 +74,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="..\..\..\program files (x86)\microsoft visual studio 10.0\vc\include\iostream" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h" />
+    <ClInclude Include="..\..\..\program files (x86)\microsoft visual studio 10.0\vc\include\string.h" />
+    <ClInclude Include="..\..\..\program files (x86)\microsoft visual studio 10.0\vc\include\tchar.h" />
+    <ClInclude Include="c:\program files (x86)\microsoft sdks\windows\v7.0a\include\windows.h" />
     <ClInclude Include="searchfiles.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
