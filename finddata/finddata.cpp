@@ -46,26 +46,30 @@ int main()
 	cout << "ПОИСК ФАЙЛОВ ПО ДАТЕ" << endl << "Выполнил: Гусев М.С 03-527" << endl;
 	cout << "Введите число ";
 	cin >> sFD.wDay;
-	cout << "Введите число ";
+	cout << "Введите месяц ";
 	cin >> sFD.wMonth;
-	cout << "Введите число ";
+	cout << "Введите год ";
 	cin >> sFD.wYear;
 
 	FILE *log;
-	log = fopen( "log.txt", "w" );
+	log = fopen( "out.txt", "w" );
 	if( log == NULL )
 	{
 		cout << "Произошла ошибка при открытии выходного файла";
 		return FALSE;
 	}
-	cout << "Введите маску для поиска файла "<< endl;
+	
 	cout << "Пример:"<< endl << "Для поиска в корневой директории  - C:\\\\*"<< endl;
 	cout << "Для поиска в папке - С:\\\\papka\\\\*"<< endl;
+	cout << "Введите маску для поиска файла : ";
 	wchar_t wstr[260];
 	fflush( stdin );
 	wscanf(L"%s", wstr );
+	//for( int i = 0; i < 260;
+	cout << "Идет поиск ..." << endl;
 	SearchFiles( log, wstr, (LPSEARCHFUNC)DoSomething, true);
-	
+	cout << "Поиск завершен." << endl << "После нажатия любой клавиши результат поместится в файл .\\out.txt";
+	getch();
 	fclose( log );
 	return 0;
 }

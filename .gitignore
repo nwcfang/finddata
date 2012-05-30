@@ -5,3 +5,5 @@ finddata/Debug/*
 Release/*
 finddata/Release/*
 finddata/log.txt
+*.sdf
+*.suo
