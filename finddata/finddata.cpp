@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "searchfiles.h"
 #include <conio.h>
+#include <vector>
 
 struct SFileData
 {
@@ -13,14 +14,35 @@ struct SFileData
 };
 
 SFileData sFD;
+//SYSTEMTIME todayData;
 
 void DoSomething(FILE *log, wchar_t file[], WIN32_FIND_DATA *wfd)
 {
 	SYSTEMTIME pSysTime;
-	FileTimeToSystemTime( &(wfd->ftCreationTime), &pSysTime );  
-	if(  pSysTime.wDay == sFD.wDay && pSysTime.wMonth == sFD.wMonth && pSysTime.wYear == sFD.wYear )
-	fwprintf( log, L"%s\t%i.%i.%i\t%i:%i\n", file, pSysTime.wDay, pSysTime.wMonth, pSysTime.wYear,
-		pSysTime.wHour, pSysTime.wMinute);
+	FileTimeToSystemTime( &(wfd->ftCreationTime), &pSysTime );
+
+	if( pSysTime.wYear > sFD.wYear)
+	{
+		fwprintf( log, L"%s\t%i.%i.%i\t%i:%i\n", file, pSysTime.wDay, pSysTime.wMonth, pSysTime.wYear,
+			pSysTime.wHour, pSysTime.wMinute);
+	}
+	else if( pSysTime.wYear == sFD.wYear)
+	{
+		if( pSysTime.wMonth > sFD.wMonth )
+		{
+			fwprintf( log, L"%s\t%i.%i.%i\t%i:%i\n", file, pSysTime.wDay, pSysTime.wMonth, pSysTime.wYear,
+				pSysTime.wHour, pSysTime.wMinute);
+		}
+		else if( pSysTime.wMonth == sFD.wMonth )
+		{
+			if( pSysTime.wDay >= sFD.wDay )
+				fwprintf( log, L"%s\t%i.%i.%i\t%i:%i\n", file, pSysTime.wDay, pSysTime.wMonth, pSysTime.wYear,
+					pSysTime.wHour, pSysTime.wMinute);
+		}
+	}
+	//if(  pSysTime.wDay >= sFD.wDay && pSysTime.wMonth >= sFD.wMonth && pSysTime.wYear >= sFD.wYear )
+	//fwprintf( log, L"%s\t%i.%i.%i\t%i:%i\n", file, pSysTime.wDay, pSysTime.wMonth, pSysTime.wYear,
+		//pSysTime.wHour, pSysTime.wMinute);
 }
 
 
@@ -41,15 +63,33 @@ int main()
     //    printf("SetConsoleOutputCP Error: %s\n", msg);
     //    return 1;
     //}
+	char strData[21] = {0};
 
 	setlocale(LC_ALL,"Russian");
 	cout << "ПОИСК ФАЙЛОВ ПО ДАТЕ" << endl << "Выполнил: Гусев М.С 03-527" << endl;
-	cout << "Введите число ";
-	cin >> sFD.wDay;
-	cout << "Введите месяц ";
-	cin >> sFD.wMonth;
-	cout << "Введите год ";
-	cin >> sFD.wYear;
+	
+	while ( 1 )
+	{
+		cout << "Введите дату (ДД.ММ.ГГГГ) ";
+		cin >> strData;
+		if( strlen( strData ) == 10 )
+			break;
+		ZeroMemory( strData, sizeof(char) * 21 );
+		cout << "Неправильный формат даты." << endl;
+	}
+
+	char tmp[4] = {0};
+	strncpy( tmp, strData, 2 );
+	sFD.wDay = atoi( tmp );
+	ZeroMemory( tmp, sizeof(char) * 4 );
+	strncpy( tmp, &strData[3], 2 );
+	sFD.wMonth = atoi( tmp );
+	ZeroMemory( tmp, sizeof(char) * 4 );
+	strncpy( tmp, &(strData[6]), 4 );
+	sFD.wYear = atoi( tmp );
+
+	//GetLocalTime( &todayData );
+
 
 	FILE *log;
 	log = fopen( "out.txt", "w" );
@@ -59,13 +99,13 @@ int main()
 		return FALSE;
 	}
 	
-	cout << "Пример:"<< endl << "Для поиска в корневой директории  - C:\\\\*"<< endl;
-	cout << "Для поиска в папке - С:\\\\papka\\\\*"<< endl;
+	cout << "Пример:"<< endl << "Для поиска в корневой директории  - C:\\*"<< endl;
+	cout << "Символ * обозначает любую последовательность символом в имени файла" << endl;
+	//cout << "Для поиска в папке - С:\\papka\\*"<< endl;
 	cout << "Введите маску для поиска файла : ";
 	wchar_t wstr[260];
 	fflush( stdin );
 	wscanf(L"%s", wstr );
-	//for( int i = 0; i < 260;
 	cout << "Идет поиск ..." << endl;
 	SearchFiles( log, wstr, (LPSEARCHFUNC)DoSomething, true);
 	cout << "Поиск завершен." << endl << "После нажатия любой клавиши результат поместится в файл .\\out.txt";

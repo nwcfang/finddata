@@ -10,12 +10,12 @@ BOOL SearchFiles( FILE *log, LPCWSTR lpszFileName, LPSEARCHFUNC lpSearchFunc, BO
 	wchar_t tmp[MAX_PATH]; // временный массив
     wchar_t name[MAX_PATH];
 	SYSTEMTIME pSysTime;
-
+	//SYSTEMTIME TodayData;
 	HANDLE hSearch = NULL;
 	WIN32_FIND_DATA wfd;
 	memset(&wfd, 0, sizeof(WIN32_FIND_DATA));
 
-
+	//GetLocalTime( &TodayData );
 
     // сначало поиск внутри вложенных папках ...
     if(bInnerFolders)
